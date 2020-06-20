@@ -1,14 +1,14 @@
 function MediaPlayer(config) {
     this.media = config.el;
-    this.plugin = config.plugins || []
-    this._initPlugins()
+    this.plugins = config.plugins || [];
+    this._initPlugins();
 }
 
 MediaPlayer.prototype._initPlugins = function () {
     this.plugins.forEach(plugin => {
         plugin.run(this)
-    })
-}
+    });
+};
 
 MediaPlayer.prototype.play = function() {
     this.media.play();
@@ -26,12 +26,20 @@ MediaPlayer.prototype.togglePlay = function() {
     }
 };
 
-MediaPlayer.prototype.mute = function() {
+MediaPlayer.prototype.toggleSound = function() {
+    if (this.media.muted) {
+        this.unmute();
+    } else {
+        this.muted();
+    }
+};
+
+MediaPlayer.prototype.muted = function() {
     this.media.muted = true
 }
 
 MediaPlayer.prototype.unmute = function() {
-    this.media.unmute = false
+    this.media.muted = false
 }
 
 export default MediaPlayer;
